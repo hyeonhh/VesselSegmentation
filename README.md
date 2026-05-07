@@ -1,5 +1,6 @@
 # VesselSegmentation
 Kaggle Vessel Segmentation 실습
-
+- 링크 : https://colab.research.google.com/#fileId=https%3A//storage.googleapis.com/kaggle-colab-exported-notebooks/hyeonhh/vessel-segmentation.8137f755-dbfb-4705-a80c-96b2fde71c0f.ipynb%3FX-Goog-Algorithm%3DGOOG4-RSA-SHA256%26X-Goog-Credential%3Dgcp-kaggle-com%2540kaggle-161607.iam.gserviceaccount.com/20260507/auto/storage/goog4_request%26X-Goog-Date%3D20260507T114713Z%26X-Goog-Expires%3D259200%26X-Goog-SignedHeaders%3Dhost%26X-Goog-Signature%3D36ac3c66367ad649301dc3d510d5026471a861c18678bc7e7ada79e73a703738e82036ba77feb9ca6ab068dface084094c7ad91c212985db145a86c8b7290431dcf20e487eaeb11b1a57f819b00e2285ab78b1d7a99e285cd3afdf70b02fc06f0b0cd4296ab951f5345e762ced4ca9f27c0d2546ff3f69ce661bbee7c43b94f1ba93cd7d27c1f64541955c61e4ce4fa12647f958f1b238ee027d2943fa7c76ae0def81ed808c7f1bbf7616c939b1c456efaaa0d7ef63f7ee9bc2b2a0cfe7013e41dc21d87dcb6ef95b29e6a0f2bb2a281f57b2d57c25d2d36163aa1e490fb87fcf869b01de14b7ca88e47a7f4ec941259ce040e2919111f7995928c1ca80b857
+  
 # 모델 구조
 - vgg16 + Unet
