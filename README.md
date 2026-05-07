@@ -1,6 +1,6 @@
 # 👁️ Retina Blood Vessel Segmentation using VGG16-UNet
 
-Kaggle 망막 이미지 데이터셋을 활용하여 망막 이미지 내의 혈관 구조를 정밀하게 분할(Segmentation)하는 딥러닝 모델 구현 프로젝트입니다. VGG16을 Encoder로 활용한 UNet 구조를 통해 복잡한 혈관 네트워크 추출 성능을 개선하였습니다.
+Kaggle 망막 이미지 데이터셋을 활용하여 망막 이미지 내의 혈관 구조를 정밀하게 분할(Segmentation)하는 딥러닝 모델 구현 프로젝트입니다. 
 
 ---
 
