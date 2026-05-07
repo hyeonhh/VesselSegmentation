@@ -1,6 +1,52 @@
-# VesselSegmentation
-Kaggle Vessel Segmentation 실습
-- 링크 : https://colab.research.google.com/#fileId=https%3A//storage.googleapis.com/kaggle-colab-exported-notebooks/hyeonhh/vessel-segmentation.8137f755-dbfb-4705-a80c-96b2fde71c0f.ipynb%3FX-Goog-Algorithm%3DGOOG4-RSA-SHA256%26X-Goog-Credential%3Dgcp-kaggle-com%2540kaggle-161607.iam.gserviceaccount.com/20260507/auto/storage/goog4_request%26X-Goog-Date%3D20260507T114713Z%26X-Goog-Expires%3D259200%26X-Goog-SignedHeaders%3Dhost%26X-Goog-Signature%3D36ac3c66367ad649301dc3d510d5026471a861c18678bc7e7ada79e73a703738e82036ba77feb9ca6ab068dface084094c7ad91c212985db145a86c8b7290431dcf20e487eaeb11b1a57f819b00e2285ab78b1d7a99e285cd3afdf70b02fc06f0b0cd4296ab951f5345e762ced4ca9f27c0d2546ff3f69ce661bbee7c43b94f1ba93cd7d27c1f64541955c61e4ce4fa12647f958f1b238ee027d2943fa7c76ae0def81ed808c7f1bbf7616c939b1c456efaaa0d7ef63f7ee9bc2b2a0cfe7013e41dc21d87dcb6ef95b29e6a0f2bb2a281f57b2d57c25d2d36163aa1e490fb87fcf869b01de14b7ca88e47a7f4ec941259ce040e2919111f7995928c1ca80b857
-  
-# 모델 구조
-- vgg16 + Unet
+# 👁️ Retina Blood Vessel Segmentation using VGG16-UNet
+
+Kaggle 망막 이미지 데이터셋을 활용하여 망막 이미지 내의 혈관 구조를 정밀하게 분할(Segmentation)하는 딥러닝 모델 구현 프로젝트입니다. VGG16을 Encoder로 활용한 UNet 구조를 통해 복잡한 혈관 네트워크 추출 성능을 개선하였습니다.
+
+---
+
+## 1. 프로젝트 개요
+* **목표**: 망막 이미지 내 혈관의 픽셀 단위 분할 (Binary Segmentation)
+* **모델 아키텍처**: VGG16-UNet (Pre-trained VGG16 Encoder)
+* **데이터셋**: Kaggle Retina Image Dataset
+---
+
+## 2. 실험 기록
+
+학습 과정에서 발생한 과적합 문제를 해결하고, 미세 혈관 분할 정밀도를 높이기 위해 다음과 같은 실험을 진행했습니다.
+
+### ✅ 조기 종료 (Early Stopping) 최적화
+* **현상**: 초기 `patience` 값을 10~20회로 설정했을 때, 모델이 혈관의 미세한 특징을 충분히 학습하기 전 조기 종료되는 문제 발생.
+* **해결**: 실험적 조정을 통해 `patience`를 **50회**로 상향 조정.
+* **결과**: 일시적인 손실(Loss) 변동에 대응하며 최적의 수렴 지점까지 충분한 학습 시간을 확보함.
+
+### ✅ Dropout 도입 실험 및 분석
+* **목표**: 얇은 혈관이 끊기거나 분할되지 않는 문제를 해결하기 위해 과적합 방지 기법인 Dropout 적용.
+* **결과**:
+    * **Dice Score**: 0.784 → 0.777 (**0.7% 하락**)
+    * **Loss**: 0.324 → 0.325 (**상승**)
+* **교훈**: Batch Normalization이 적용된 구조에서 Dropout을 추가하면 오히려 미세한 구조적 특징을 손실시킬 수 있음을 확인. 
+* **최종 전략**: Dropout 대신 **조기 종료**와 **Weight Decay**를 사용하여 일반화 성능 유지.
+
+---
+
+## 3. 최종 성능 및 결과
+
+검증 데이터셋(Validation Dataset) 기준 최종 성능은 다음과 같습니다.
+
+| Metric | Score |
+| :--- | :--- |
+| **Dice Score** | **0.784** |
+| **Loss** | **0.324** |
+
+### 시각적 분석
+* **굵은 혈관**: 높은 분할 정확도와 연속성을 보임.
+* **미세 혈관**: 전반적인 구조 파악은 우수하나, 일부 얇은 혈관에서 단절 현상이 관찰되어 향후 개선 과제로 설정.
+
+---
+
+## 4. 기술 스택
+* **Language**: Python
+* **Framework**: PyTorch 
+* **Architecture**: VGG16-UNet
+* **Libraries**: OpenCV, Matplotlib, NumPy
+---
